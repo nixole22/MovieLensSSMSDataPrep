@@ -1,0 +1,27 @@
+-- ESTABLISH/INITIALIZE DATABASE
+USE MovieLens;
+
+SELECT *
+FROM users u;
+
+CREATE TEMPORARY TABLE AGE_GROUP AS
+
+SELECT 
+    user_id
+    ,age
+    ,occupation
+    ,CASE
+		WHEN age < 18 AND occupation IN('K-12 student', 'college/grad student', 'unemployed') THEN '18-24'
+        WHEN age BETWEEN  18 AND 24 THEN '18-24'
+        WHEN age BETWEEN 25 AND 34 THEN '25-34'
+        WHEN age BETWEEN 35 AND 44 THEN '35-44'
+        WHEN age BETWEEN 45 AND 54 THEN '45-54'
+        WHEN age >= 55 THEN '55+'
+	END AS AGE_GROUP
+FROM users;
+
+SELECT AGE
+    ,OCCUPATION
+        
+FROM USERS
+ORDER BY AGE, OCCUPATION;
