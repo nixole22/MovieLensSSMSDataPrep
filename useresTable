@@ -1,0 +1,5 @@
+-- ESTABLISH/INITIALIZE DATABASE
+USE MovieLens;
+
+SELECT *
+FROM users u;
