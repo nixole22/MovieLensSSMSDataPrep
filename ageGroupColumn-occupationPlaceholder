@@ -1,0 +1,42 @@
+-- ESTABLISH/INITIALIZE DATABASE
+USE MovieLens;
+
+-- SEE AGE AND OCCUPATION INFORMATION
+SELECT user_id
+    ,age
+    ,occupation
+FROM users
+ORDER BY age, occupation;
+
+
+
+SELECT age
+FROM users u;
+
+
+SELECT 
+    user_id
+    ,age
+    ,occupation
+    ,CASE
+        WHEN age BETWEEN 18 AND 24 THEN '18-24'
+        WHEN age BETWEEN 25 AND 34 THEN '25-34'
+        WHEN age BETWEEN 35 AND 44 THEN '35-44'
+        WHEN age BETWEEN 45 AND 54 THEN '45-54'
+        WHEN age >= 55 THEN '55+'
+        WHEN age < 18  THEN 'under 18'
+	END AS AGE_GROUP
+FROM users;
+
+
+UPDATE users
+SET AGE_GROUP = CASE
+    WHEN occupation = 'retired' THEN '55+'
+    WHEN occupation IN ('academic/educator', 'executive/managerial', 'lawyer', 'farmer') THEN '35-44'
+    WHEN occupation IN ('technician/engineer', 'sales/marketing', 'artist', 'programmer', 'other or not specified') THEN '25-34'
+    WHEN occupation IN ('K-12 student', 'college/grad student', 'unemployed') THEN '18-24'
+    ELSE AGE_GROUP
+END
+WHERE AGE_GROUP = 'under 18';
+
+
